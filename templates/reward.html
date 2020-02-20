@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+<script>
+    var State = "{{state}}"
+  
+    var name = "{{name}}"
+    var image = "{{image}}"
+    var toemail = "{{toemail}}"    
+    var kind = "{{kind}}"    
+    var time = "{{time}}"  
+  </script>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>reword</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <link href="https://fonts.googleapis.com/css?family=Blinker&display=swap" rel="stylesheet">
+	<script src="{{url_for('static',filename='js/jquery.min.js')}}"></script>
+	<script src="{{url_for('static',filename='js/jquery.scrolly.min.js')}}"></script>
+	<script src="{{url_for('static',filename='js/jquery.scrollex.min.js')}}"></script>
+	<script src="{{url_for('static',filename='js/skel.min.js')}}"></script>
+	<script src="{{url_for('static',filename='js/util.js')}}"></script>
+  <script src="{{url_for('static',filename='js/main.js')}}"></script>
+  <link rel="stylesheet" href="{{url_for('static',filename='css/main.css')}}" />
+  <link href="{{url_for('static',filename='css/all.min.css')}}" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.js"></script>
+  <style type="text/css">
+    @import url('https://fonts.googleapis.com/css?family=Lacquer&display=swap');
+
+    * {
+      font-family: 'Blinker', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      min-width: 250px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    #header {
+      background: #4078FF;
+    }
+
+
+
+
+    ul {
+      margin: 0;
+      padding: 0;
+    }
+
+    ul li {
+      cursor: pointer;
+      position: relative;
+      padding: 12px 8px 12px 40px;
+      list-style-type: none;
+
+      font-size: 18px;
+      transition: 0.2s;
+
+
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    ul li:nth-child(odd) {}
+
+    ul li:hover {}
+
+    ul li.checked {
+      background: #4078FF;
+
+      text-decoration: line-through;
+    }
+
+    ul li.checked::before {
+      content: '';
+      position: absolute;
+
+      border-style: solid;
+      border-width: 0 2px 2px 0;
+      top: 10px;
+      left: 16px;
+      transform: rotate(45deg);
+      height: 15px;
+      width: 7px;
+    }
+
+    .close {
+      position: absolute;
+      right: 0;
+      top: 0;
+      padding: 12px 16px 12px 16px;
+    }
+
+    .header {
+      background-color: #9BD5E8;
+      padding: 30px 40px;
+      color: white;
+      text-align: center;
+    }
+
+    .header:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    input {
+      margin: 0;
+      border: none;
+      border-radius: 0;
+      width: 100%;
+      padding: 10px;
+      float: left;
+      font-size: 16px;
+    }
+
+    .addBtn {
+      padding: 10px;
+      width: 25%;
+
+      float: right;
+      text-align: center;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+      border-radius: 0;
+    }
+
+    .addBtn:hover {
+      background-color: #2E97E8;
+    }
+
+    body {
+      background-color: #f2f4f7;
+    }
+
+    .box {
+      margin-top: 190%;
+      background-color: #f2f4f7;
+    }
+
+    .nav {
+      height: 70px;
+      border-top: 1px solid gray;
+      display: flex;
+      align-items: center;
+      color: black;
+      opacity: 0.5;
+
+    }
+
+    .nav-center {
+      display: flex;
+      margin-left: 20%;
+
+    }
+
+    .nav-item {
+      padding-left: 20px;
+      font-size: 12px;
+      opacity: 0.5;
+      color: black;
+
+    }
+
+    a {
+      text-decoration: none;
+
+    }
+
+    a {
+      color: black;
+    }
+
+    .underlist {
+      width: 400px;
+      margin: 0 auto;
+      margin-top: 15px;
+      text-align: center;
+      border-top: 1px solid gray;
+      border-bottom: 1px solid gray;
+      border-right: 1px solid gray;
+      border-left: 1px solid gray;
+      margin-top: -200px;
+    }
+
+    #TButton {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: ;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 17px;
+      width: 140px;
+    }
+    #Send
+    {
+      margin-top:20px;
+    }
+    #SButton {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: ;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 17px;
+      width: 140px;
+      border-radius: .25em;
+    }
+
+    #FButton {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: ;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 17px;
+      width: 140px;
+      border-radius: .25em;
+    }
+
+    .filebox label {
+      display: inline-block;
+      padding: .5em .75em;
+      color: #fff;
+      font-size: inherit;
+      line-height: normal;
+      vertical-align: middle;
+      background-color: #5cb85c;
+      cursor: pointer;
+      border: 1px solid #4cae4c;
+      border-radius: .25em;
+      -webkit-transition: background-color 0.2s;
+      transition: background-color 0.2s;
+      border: none;
+    }
+
+    .filebox label:hover {
+      background-color: #6ed36e;
+      border: none;
+    }
+
+    .filebox label:active {
+      background-color: #367c36;
+      border: none;
+    }
+
+    .filebox input[type="file"] {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+      border: none;
+    }
+  </style>
+</head>
+
+<body class="subpage">
+  <header id="header">
+    <div class="logo"><a href="https://tmslive.co.kr" style="font-family: 'Blinker',sans-serif">TMS<span style="font-family: 'Blinker',sans-serif">toomuchspeaker</span></a></div>
+    <a href="#menu" class="toggle"><span style="font-family: 'Blinker',sans-serif">Menu</span></a>
+  </header>
+
+  <nav id="menu">
+    <ul class="links">
+      <li><a href="http://tmslive.co.kr/"><span style="font-family: 'Blinker', sans-serif">메인 페이지</span></a>
+        <a href="http://tmslive.co.kr/todo"><span style="font-family: 'Blinker', sans-serif">해야 할 일</span></a>
+        <a href="http://tmslive.co.kr/study"><span style="font-family: 'Blinker', sans-serif">공부하러 가기</span></a>
+				<a href="http://tmslive.co.kr/day"><span style="font-family: 'Blinker', sans-serif">게임, 공부 시간</span></a>
+				<a href="http://tmslive.co.kr/rewardreceive"><span style="font-family: 'Blinker', sans-serif">보상 받기</span></a>
+				<a href="http://tmslive.co.kr/reward"><span style="font-family: 'Blinker', sans-serif">보상 등록</span></a>
+    </ul>
+  </nav>
+
+  <header id="header">
+    <div class="logo">
+      <a href="https://tmslive.co.kr">TMS<span>toomuchspeaker</span></a>
+    </div>
+    <div class="logo">
+    </div>
+
+    <a href="#menu" class="toggle"><span>Menu</span></a>
+  </header>
+
+  <nav id="menu">
+    <ul class="links">
+      <li>
+            <li><a href="/"><span style="font-family: 'Blinker', sans-serif">메인 페이지</span></a>
+              <a href="/todo"><span style="font-family: 'Blinker', sans-serif">해야 할 일</span></a>
+              <a href="/study"><span style="font-family: 'Blinker', sans-serif">공부하러 가기</span></a>
+              <a href="/day"><span style="font-family: 'Blinker', sans-serif">게임, 공부 시간</span></a>
+              <a href="/rewardreceive"><span style="font-family: 'Blinker', sans-serif">보상 받기</span></a>
+              <a href="/reward"><span style="font-family: 'Blinker', sans-serif">보상 등록</span></a>
+    </ul>
+  </nav>
+  <div id="MainView" style="width:100%;height: 800px;" onload="getState();">
+    <button id="CreateQuest" style="display: block;margin:0px auto;margin-top: 100px;0" onclick="">
+      <div id="TButton">
+        퀘스트 생성
+      </div>
+    </button>
+  </div>
+  <div id="CreateView">
+    <form id="CreateForm" method="POST" action="/reward" enctype="multipart/form-data">
+      <p style="font-family: 'Blinker',sans-serif">QuestName</p>
+      <input type="text" name="name" id="input_name" placeholder="퀘스트 이름">
+      <br><br>
+      <p style="font-family: 'Blinker',sans-serif">QuestReqard</p>
+      <div class="filebox">
+        <label for="ex_file" style="font-family: 'Blinker',sans-serif">업로드</label>
+
+        <input type="file" name="image" id="ex_file" accept="image/*">
+        <br>
+      </div>
+      <br>
+      <select name="kind" id="input_kind">
+        <option value="game" style="font-family: 'Blinker',sans-serif">게임시간</option>
+        <option value="study" style="font-family: 'Blinker',sans-serif">공부시간</option>
+      </select>
+      <input type="text" name="time" id="input_time" placeholder="줄일 시간">
+      <br>
+      <input type="text" name="toemail" id="input_email" placeholder="보낼 이메일">
+      <button id="Send">
+        <label id="SButton" style="font-family: 'Blinker',sans-serif">
+          생성
+        </div>
+      </button>
+    </form>
+
+  </div>
+  <div id="QuestView" style="font-family: 'Blinker', sans-serif;">
+      <P style="font-family: 'Blinker', sans-serif;">퀘스트이름</P>
+      <div id="nameView" style="font-family: 'Blinker', sans-serif;">{{name}}</div>
+      <div id="imageView">
+        <img src="rewardImages/{{image}}" style ="width:100%">
+      </div>
+      <div id="kinView">
+        <div id="GameView" style="font-family: 'Blinker', sans-serif;">
+          <span style="font-family: 'Blinker', sans-serif;">게임시간</spane>
+            <span style="font-family: 'Blinker', sans-serif;">{{time}}</span>
+        </div>
+        <div id="StudyView" style="font-family: 'Blinker', sans-serif;">
+          <span style="font-family: 'Blinker', sans-serif;">공부시간</span>
+          <span style="font-family: 'Blinker', sans-serif;">{{time}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="underlist">
+      목표 완료 시 받을 보상을 입력하는 곳입니다.<br>차후 운영 측에서 퀘스트 수행 정도에 따라 포인트 등을 지급하여 이를 통해 보상을 지급해드릴 예정입니다.
+      </div>
+      <div class="box">
+          <div class="nav">
+                  <div class="nav-center">
+                      <div class="nav-item">
+                        <a href="개인정보처리방침">
+                          <br><br>개인정보처리방침<br>
+                        </a>
+                     
+                   <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/%22%3E<img alt="크리에이티브 커먼즈 라이선스" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><a xmlns:cc="http://creativecommons.org/ns#" href="http://tmslive.co.kr/" property="cc:attributionName" rel="cc:attributionURL">http://tmslive.co.kr/</a>에 의해 작성된 <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">본 웹사이트의 이미지, 그림, 동영상 등 모든 저작물</span>은(는) <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/%22%3E">크리에이티브 커먼즈 저작자표시-비영리-동일조건변경허락 4.0 국제 라이선스</a>에 따라 이용할 수 있습니다.
+                  </div>
+                  </div>
+              </div>
+      </div>
+  <script>
+
+    var Mainview = document.getElementById("MainView");
+    var CreateView = document.getElementById("CreateView");
+    var QeustView = document.getElementById("QuestView");
+
+    var CreateForm = document.getElementById("CreateForm");
+    var input_name = document.getElementById("input_name");
+    var input_image = document.getElementById("ex_file");
+    var input_kind = document.getElementById("input_kind");
+
+    var input_time = document.getElementById("input_time");
+    var input_email = document.getElementById("input_email");
+
+    var Send = document.getElementById("Send");
+    var Questbutton = document.getElementById("CreateQuest");
+
+
+
+    function getState() {
+      //quest is Not Exist -> Make File 
+      //quest is doing -> Edit 
+      //quest is falil 
+      //quest is complete
+      if(State === "Quest")
+      {
+        OnQuestView();
+        OffMainView();
+      }
+      else
+      {
+        OnMainView();
+        OffQuestView();
+      }
+    }
+
+    function CreateQuest() {
+
+    }
+
+    function UpdateMainView() {
+
+    }
+
+    function OnMainView() {
+      Mainview.style.display = "block";
+      UpdateMainView();
+    }
+
+    function OffMainView() {
+      MainView.style.display = "none";
+    }
+
+    function ToggleMainView() {
+      if (Mainview.style.display == "none") {
+        OnMainView();
+      }
+      else {
+        OffMainView();
+      }
+    }
+
+    function OnCreateView() {
+      CreateView.style.display = "block";
+      InitCreateView();
+    }
+
+    function OffCreateView() {
+      CreateView.style.display = "none";
+    }
+
+    function ToggleCreateView() {
+      if (CreateView.style.display == "none") {
+        OnCreateView();
+      }
+      else {
+        OffCreateView();
+      }
+    }
+    function OnQuestView() {
+      QuestView.style.display = "block";
+      InitCreateView();
+    }
+
+    function OffQuestView() {
+      QuestView.style.display = "none";
+    }
+
+    function ToggleQuestView() {
+      if (QuestView.style.display == "none") {
+        OnQuestView();
+      }
+      else {
+        OffQuestView();
+      }
+    }
+    function InitCreateView() {
+      CreateForm.reset();
+    }
+
+    Send.onclick = function () {
+      if (input_name.value === "" || input_image.value === "" || input_time.value === "") {
+        alert("꽉 채워주세요!!");
+        return false;
+      } else {
+        CreateForm.submit();
+        return true;
+      }
+    }
+    Questbutton.onclick = function () {
+      ToggleMainView();
+      ToggleCreateView();
+    }
+    input_kind.onchange = function () {
+      var text = "";
+      if (input_kind.selectedIndex == 0) {
+        text = "줄일 시간";
+      } else {
+        text = "늘일 시간";
+      }
+      input_time.setAttribute("placeholder", text);
+    }
+
+    function ViewQuest()
+    {
+      if(kind == "study")
+      {
+        document.getElementById("StudyView").style.display ="block";
+        document.getElementById("GameView").style.display ="none";
+      }
+      else
+      {
+        document.getElementById("StudyView").style.display ="none";
+        document.getElementById("GameView").style.display ="block";
+      }
+    }
+    
+    OffMainView();
+    OffCreateView();
+    OffQuestView();
+
+    getState();
+    ViewQuest();
+  </script>
+</body>
+
+</html>

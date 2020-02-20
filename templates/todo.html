@@ -1,0 +1,711 @@
+<!doctype html>
+<html>
+<script>
+ var url = "https://tmslive.co.kr/";
+</script>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>해야 할 일 기록</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <link href="https://fonts.googleapis.com/css?family=Blinker&display=swap" rel="stylesheet">
+  <script src="{{url_for('static',filename='assets/js/jquery.min.js')}}"></script>
+	<script src="{{url_for('static',filename='assets/js/jquery.scrolly.min.js')}}"></script>
+	<script src="{{url_for('static',filename='assets/js/jquery.scrollex.min.js')}}"></script>
+	<script src="{{url_for('static',filename='assets/js/skel.min.js')}}"></script>
+	<script src="{{url_for('static',filename='assets/js/util.js')}}"></script>
+  <script src="{{url_for('static',filename='assets/js/main.js')}}"></script>
+  <link rel="stylesheet" href="{{url_for('static',filename='assets/css/main.css')}}" />
+	<link href="{{url_for('static',filename='fontawesome-free-5.9.0-web/css/all.min.css')}}" rel="stylesheet">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.js"></script>
+ 
+  <style type="text/css">
+
+    @import url('https://fonts.googleapis.com/css?family=Lacquer&display=swap');
+
+    * {
+      font-family: 'Blinker', sans-serif;
+    }
+
+    #header {
+      background: #4078FF;
+    }
+
+    #header {
+
+      background: #4078FF;
+
+    }
+
+    /*side bar*/
+    .sidenav {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      background-color: #111;
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding-top: 60px;
+    }
+
+    .sidenav a {
+      padding: 8px 8px 8px 32px;
+      text-decoration: none;
+      font-size: 20px;
+      color: #818181;
+      display: block;
+      transition: 0.3s;
+      text-align: center;
+    }
+
+    .sidenav a:hover {
+      color: #f1f1f1;
+    }
+
+    .sidenav .closebtn {
+      position: absolute;
+      top: 0;
+      right: 25px;
+      font-size: 20px;
+      margin-left: 50px;
+    }
+
+    element.style {
+      font-size: 20px;
+      cursor: pointer;
+      float: left;
+    }
+
+    @media screen and (max-height: 450px) {
+      .sidenav {
+        padding-top: 15px;
+      }
+
+      .sidenav a {
+        font-size: 18px;
+      }
+    }
+
+    /*side bar*/
+
+    /* TiTLE BAR */
+    #titleBar {
+      max-width: 0 auto;
+      margin: 0 auto;
+      font-size: 15pt;
+    }
+
+    .right {
+      float: right;
+    }
+
+    .right .fas {
+      margin-left: 15px;
+    }
+
+    body {
+      background-color: white;
+      color: #020202;
+    }
+
+    .list {
+      max-width: 0 auto;
+      margin: 0 auto;
+      margin-top: 15px;
+    }
+	.underlist {
+      width: 300px;
+      margin: 0 auto;
+      margin-top: 15px;
+      text-align: center;
+      border-top: 1px solid gray;
+      border-bottom: 1px solid gray;
+      border-right: 1px solid gray;
+      border-left: 1px solid gray;
+    }
+
+    .list-item {
+      background-color: #CAD9E0;
+      height: 50px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      margin-right: 3px;
+      margin-left: 3px;
+      position: relative;
+
+    }
+
+    .list-item-2 {
+      background-color: #4078FF;
+      height: 70px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      font-size: 50px;
+
+    }
+
+    .list-item i {
+      display: block;
+      float: left;
+      font-size: 45px;
+      margin-top: 10px;
+      margin-left: 15px;
+
+    }
+
+    .list-last {
+      background-color: #4078FF;
+      height: 60px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      font-size: 10px;
+      margin-top: 75px;
+      margin-left: 0px;
+      padding-left: 15px;
+    }
+
+    #분석Bar {
+      font-size: 20px;
+
+    }
+
+    body {
+      background-color: #f2f4f7;
+    }
+
+    .box {
+      margin-top: 190%;
+      background-color: #f2f4f7;
+    }
+
+    .nav {
+      height: 70px;
+      border-top: 1px solid gray;
+      display: flex;
+      align-items: center;
+      color: black;
+      opacity: 0.5;
+
+    }
+
+    .nav-center {
+      display: flex;
+      margin-left: 20%;
+
+    }
+
+    .nav-item {
+      padding-left: 20px;
+      font-size: 12px;
+      opacity: 0.5;
+      color: black;
+
+    }
+
+    a {
+      text-decoration: none
+    }
+
+    a {
+      color: black;
+    }
+
+    #plusp {
+
+      margin-left: 2000%;
+      margin-top: 1px;
+      color: #FFFFFF;
+
+    }
+
+    #backp {
+      color: #FFFFFF;
+    }
+
+    #checkp {
+
+      margin-left: 2000%;
+      margin-top: -42px;
+      color: #FFFFFF;
+
+    }
+    .starp
+    {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      font-size:5%;
+      color: #FFFFFF;
+      left:10px;
+      top:10px; 
+    }
+    .starp i 
+    {
+      margin:0px;
+    }
+    .textp
+    {
+        position: absolute;
+        top: 13px;
+        left: 20%;
+    }
+    .canclep
+    {
+      position: absolute;
+      width: 1px;
+      font-size:3%;
+      color:#2F2F2F; 
+      left: 320px;
+    }
+    input {
+      margin: 0;
+      border: none;
+      border-radius: 0;
+      width: 100%;
+      padding: 10px;
+      
+      font-size: 16px;
+    }
+  </style>
+</head>
+
+<body class="subpage">
+  <div id="ListView">
+    <header id="header">
+      <div class="logo">
+        <a href="https://tmslive.co.kr">TMS<span>toomuchspeaker</span></a>
+      </div>
+      <div class="logo">
+        <div id="plusp">
+          <i class="fas fa-plus"></i>
+        </div>
+      </div>
+
+      <a href="#menu" class="toggle"><span>Menu</span></a>
+    </header>
+
+    <nav id="menu">
+			<ul class="links">
+            <li><a href="/"><span style="font-family: 'Blinker', sans-serif">메인 페이지</span></a>
+              <a href="/todo"><span style="font-family: 'Blinker', sans-serif">해야 할 일</span></a>
+              <a href="/study"><span style="font-family: 'Blinker', sans-serif">공부하러 가기</span></a>
+              <a href="/day"><span style="font-family: 'Blinker', sans-serif">게임, 공부 시간</span></a>
+              <a href="/rewardreceive"><span style="font-family: 'Blinker', sans-serif">보상 받기</span></a>
+              <a href="/reward"><span style="font-family: 'Blinker', sans-serif">보상 등록</span></a>
+			</ul>
+		</nav>
+
+
+    <div class="list" id="list">
+	</div>
+	<div class="underlist" style="text-align: center;">
+		해야 할 일을 정리하는 곳입니다.<br> + 버튼을 사용하시어 입력하면 되시며,<br>삭제 기능도 지원하고 있습니다.
+	  </div>
+
+    <div class="box">
+      <div class="nav">
+        <div class="nav-center">
+          <div class="nav-item"><a href="/ad"><span style="font-family: 'Blinker', sans-serif">개인정보처리방침</span></a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="AddView">
+    <header id="header">
+      <div class="logo">
+        <div id="backp">
+          <i class="fas fa-arrow-left"></i>
+        </div>
+        <div class="logo">
+          <div id="checkp">
+            <i class="fas fa-check"></i>
+          </div>
+        </div>
+      </div>
+    </header>
+    <form>
+    <input id="TodoName" type="text" placeholder="#TODO"> 
+    </form>
+    <div class="box">
+        <div class="nav">
+          <div class="nav-center">
+            <div class="nav-item"><a href="/ad">
+              <br><br><br><br>
+              <span style="font-family: 'Blinker',sans-serif">개인정보처리방침</span><br><br>
+    
+              <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4>.0/%22%3E">
+                <img alt="크리에이티브 커먼즈 라이선스" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" />
+                 </a>
+                 <br />
+                 <a xmlns:cc="http://creativecommons.org/ns#" href="http://tmslive.co.kr/" property="cc:attributionName" rel="cc:attributionURL">
+                   https://tmslive.co.kr/
+                 </a><span style="font-family: 'Blinker',sans-serif">에 의해 작성된</span> 
+                 <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">
+                <span style="font-family: 'Blinker',sans-serif">본 웹사이트의 이미지, 그림, 동영상 등 모든 저작물은(는)</span>
+                 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/%22%3E">
+                <span style="font-family: 'Blinker',sans-serif">크리에이티브 커먼즈 저작자표시-비영리-동일조건변경허락 4.0 국제 라이선스</a>에 따라 이용할 수 있습니다.</span>
+            </a></div>
+            
+            </div>
+          </div>
+        </div>
+  </div>
+  <script>
+    var Update;
+    var manager;
+    function item(name, star, finish)
+    {
+      this.name = name;
+      this.star = star;
+      this.finish = finish;
+    }
+    item.prototype.ToggleStar = function()
+    {
+      if(this.star)
+      {
+          this.star = false;
+      }else
+      {
+        this.star = true;
+      }
+    }
+    item.prototype.ToggleFinish = function()
+    {
+      if(this.finish)
+      {
+        this.finish = false;
+      }else
+      {
+        this.finish = true;
+      }
+    }
+    function Manager()
+    {
+        this.size = 0;
+        this.List = new Array();
+        this.ajax = new Ajax(this);
+    }
+    Manager.prototype.addList = function(item)
+    {
+        this.List.push(item);
+        this.size += 1;
+        this.ajax.Update();
+    }
+    Manager.prototype.UpdateList = function()
+    {
+      this.ajax.Get();
+      Update();
+    }
+    Manager.prototype.removeList= function(index)
+    {
+      this.List.splice(index,1);
+      this.size -= 1;
+      this.ajax.Update();
+    }
+    Manager.prototype.extractJson = function()
+    {
+      return JSON.stringify(this.List);
+    }
+    Manager.prototype.JsontoList = function(text)
+    {
+      var list = new Array();
+      list = JSON.parse(text);
+      this.size = list.length;
+      for(var i = 0 ; i < list.length; i++)
+     {
+       this.List[i] = new item(list[i]['name'],list[i]['star'],list[i]['finish']);
+     }
+   }
+ 
+   Manager.prototype.Update = function()
+   {
+     this.ajax.Update();
+   }
+   
+   function Ajax(manager)
+   {
+     this.domain = url;
+     this.manager = manager;
+   }
+ 
+   Ajax.prototype.Update = function()
+   {
+     fetch(this.domain+"UPDATE",{
+       method: 'POST',
+       body: manager.extractJson(),
+       headers: {
+         "Content-Type": "application/json; charset=utf-8"
+       },
+       credentials: 'include'
+       })
+       .then(function(response){
+          response.text().then(function(text){
+           Update();
+       })
+     }).catch((err) => {
+           alert("에러: "+err+" 죄송합니다. 서비스에 차질이 생겼습니다.");
+        });
+    }
+    Ajax.prototype.Get = function()
+    {
+      fetch(this.domain+"GET",{
+        method: 'POST',
+          body: "",
+        headers: {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        credentials: 'include'
+      })
+        .then((response) => response.json())
+        .then((json) => {
+          this.manager.JsontoList(json);
+          Update();
+        }).catch((err) => {
+          alert("에러: "+err+" 죄송합니다. 서비스에 차질이 생겼습니다.");
+        });
+    }
+ 
+</script>
+  <script>
+    function getInput() {
+      return document.getElementById("myInput").value;
+    }
+    function IsEmpty(str) {
+      return str === '';
+    }
+    function CreateTodo(data) {
+      return `<li id="">${data}<span class="close">×</span></li>`;
+    }
+ 
+    function Load() {
+ 
+    }
+ 
+    function newElement() {
+      var inputValue = getInput();
+      if (IsEmpty(inputValue)) {
+        alert("꼭 입력해야 합니다!");
+        return;
+      } else {
+        document.getElementById("myUL").innerHTML += CreateTodo(inputValue);
+        Update_Close();
+      }
+    }
+ 
+    function Update_Close() {
+      for (i = 0; i < close.length; i++) {
+       close[i].onclick = function () {
+         var div = this.parentElement;
+         removeItem(i);
+         div.style.display = "none";
+       }
+     }
+   }
+ </script>
+
+
+  <script>
+    function getInput() {
+      return document.getElementById("myInput").value;
+    }
+    function IsEmpty(str) {
+      return str === '';
+    }
+    function CreateTodo(data) {
+      return `<li id="">${data}<span class="close">×</span></li>`;
+    }
+
+    function Load() {
+
+    }
+
+    function newElement() {
+      var inputValue = getInput();
+      if (IsEmpty(inputValue)) {
+        alert("꼭 입력해야 합니다!");
+        return;
+      } else {
+        document.getElementById("myUL").innerHTML += CreateTodo(inputValue);
+        Update_Close();
+      }
+    }
+
+    function Update_Close() {
+      for (i = 0; i < close.length; i++) {
+        close[i].onclick = function () {
+          var div = this.parentElement;
+          removeItem(i);
+          div.style.display = "none";
+        }
+      }
+    }
+  </script>
+
+<script>
+ 
+  var Listview = document.getElementById("ListView");
+  var AddView = document.getElementById("AddView");
+  var plus = document.getElementById("plusp");
+  var back = document.getElementById("backp");
+  var check = document.getElementById("checkp");
+  var TodoName = document.getElementById("TodoName");
+  var list= document.getElementById("list");
+  var star = document.getElementsByClassName("starp");
+ 
+  manager = new Manager();
+  OnListView();
+  OffAddView();
+
+  function OnListView() {
+    Listview.style.display = "block";
+  }
+  function OffListView() {
+    Listview.style.display = "none";
+  }
+  function OnAddView() {
+    AddView.style.display = "block";
+  }
+  function OffAddView() {
+    AddView.style.display = "none";
+  }
+
+  function ToggleListView() {
+    if (Listview.style.display === "none") {
+      OnListView();
+    }
+    else {
+      OffListView();
+    }
+  }
+  function ToggleAddView() {
+    if (AddView.style.display === "none") {
+      OnAddView();
+    }
+    else {
+      OffAddView();
+    }
+  }
+
+  plus.onclick = function () {
+    ToggleListView();
+    ToggleAddView();
+  }
+  back.onclick = function () {
+    ToggleAddView();
+    ToggleListView();
+  }
+  check.onclick = function () {
+    if (TodoName.value === "") {
+      alert("꽉 채워주세요!!");
+    }
+    else {
+      manager.addList(new item(TodoName.value,false,false));
+     
+      back.onclick();
+      Update();
+    }
+  }
+ 
+  Update = function()
+  {
+      var html = "";
+      for(var i = 0; i < manager.size; i++)
+     {
+         if(manager.List[i].star && !manager.List[i].finish)
+         {
+             html +=
+             `<div id="${i}" class="list-item">
+                <div class="starp" onclick="OnOffStar(this);">
+                  <i style="font-size: 30px; color:yellow;" class="fas fa-star"></i>
+                </div>
+                <span class="textp" onclick="Finish(this);">${manager.List[i].name}</span>
+                <div class="canclep" onclick="remove(this);">
+                  <i style="font-size: 30px;" class="fas fa-times"></i>
+                </div>
+              </div>`
+          }  
+      }
+      for(var i = 0; i < manager.size;i++)
+     {
+         if(!manager.List[i].star && !manager.List[i].finish)
+         {
+             html +=
+             `<div id="${i}" class="list-item"  >
+                <div class="starp" onclick="OnOffStar(this);">
+                  <i style="font-size: 30px;" class="fas fa-star"></i>
+                </div>
+                <span class="textp" onclick="Finish(this);"">${manager.List[i].name}</span>
+                <div class="canclep" onclick="remove(this);"><i style="font-size: 30px;" class="fas fa-times"></i>
+                </div>
+              </div>`
+          }
+      }
+      for(var i = 0; i < manager.size; i++)
+     {
+         if(manager.List[i].star && manager.List[i].finish)
+         {
+             html +=
+             `<div id="${i}" class="list-item">
+                <div class="starp" onclick="OnOffStar(this);">
+                  <i style="font-size: 30px; color:yellow;" class="fas fa-star"></i>
+                </div>
+                <span class="textp" style="text-decoration-line:line-through" onclick="Finish(this);">${manager.List[i].name}</span>
+                <div class="canclep" onclick="remove(this);">
+                  <i style="font-size: 30px;" class="fas fa-times"></i>
+                </div>
+              </div>`
+          }  
+      }
+      for(var i = 0; i < manager.size;i++)
+     {
+         if(!manager.List[i].star && manager.List[i].finish)
+         {
+             html +=
+             `<div id="${i}" class="list-item"  ">
+                <div class="starp" onclick="OnOffStar(this);">
+                  <i style="font-size: 30px;" class="fas fa-star"></i>
+                </div>
+                <span class="textp" style="text-decoration-line:line-through" onclick="Finish(this);">${manager.List[i].name}</span>
+                <div class="canclep" onclick="remove(this);"><i style="font-size: 30px;" class="fas fa-times"></i>
+                </div>
+              </div>`
+          }
+      }
+      list.innerHTML = html;
+  }
+  function OnOffStar(element)
+  {
+    var id = element.parentElement.id;
+    manager.List[id].ToggleStar();
+    manager.Update();
+  }
+
+  function remove(element)
+  {
+    var id = element.parentElement.id;
+    manager.removeList(id);
+    Update();
+  }
+  function Finish(element)
+  {
+    var id = element.parentElement.id;
+    manager.List[id].ToggleFinish();
+    manager.Update();
+  }
+  manager.UpdateList();
+  /*----------------------------------------*/
+
+</script>
+
+</body>
+
+</html>

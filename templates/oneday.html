@@ -1,0 +1,638 @@
+<!doctype html>
+<html>
+<script>
+
+	//Time class
+	function Time() {
+		this.second = this.Parse("00:00:00");
+	}
+	function Time(str) {
+		this.second = this.Parse(str);
+	}
+
+	//Parse from hh:mm:ss to Time Object
+	Time.prototype.Parse = function (str) {
+		var ArrayStrNumber = str.split(':');
+		var ArrayNumber = new Array();
+		for (var i = 0; i < ArrayStrNumber.length; i++) {
+			ArrayNumber.push(Number(ArrayStrNumber[i]));
+		}
+		this.second = ArrayNumber[0] * 3600 + ArrayNumber[1] * 60 + ArrayNumber[2];
+		return this.second;
+	}
+
+	//get Hour Or Minute Or Second for 00:00:00 
+	Time.prototype.getHoursFor = function () {
+		return Math.floor(this.second / 3600);
+	}
+	Time.prototype.getMinutesFor = function () {
+		return Math.floor(this.second / 60);
+	}
+	Time.prototype.getSecondsFor = function () {
+		return this.second;
+	}
+
+	//get hh , mm ,ss
+	Time.prototype.getHours = function () {
+		return Math.floor(this.second / 3600) % 24;
+	}
+	Time.prototype.getMinutes = function () {
+		return Math.floor(this.second / 60) % 60;
+	}
+	Time.prototype.getSeconds = function () {
+		return this.second % 60;
+	}
+
+	// Time a - b
+	Time.prototype.SubTime = function (a, b) {
+		this.second = a.second - b.second;
+		return this;
+	}
+	//Time a + b
+	Time.prototype.AddTime = function (a, b) {
+		this.second = a.second + b.second;
+		return this;
+	}
+	//Time object - a
+	Time.prototype.SubTime = function (a) {
+		this.second = Math.abs(this.second - a.second);
+		return this;
+	}
+	//Time object + a 
+	Time.prototype.AddTime = function (a) {
+		this.second += a.second;
+		return this;
+	}
+
+	//Time to string
+	Time.prototype.tostring = function () {
+		return "" + this.getHours() + ":" + this.getMinutes() + ":" + this.getSeconds();
+	}
+
+	//string to Array Time	
+	function stringToArrayTime(str)
+	{
+		return str.replace(/&#39;/gi, "").replace(/[\[\]\s]+/gi, "").split(',');
+	}
+</script>
+
+<script>
+
+	//get the time of day and week from flask 
+	var study = new Time("{{ studytime }}");
+	var game = new Time("{{gametime}}");
+	var free = new Time("24:00:00").SubTime(study).SubTime(game);
+
+	//string to Array Time
+	var week_study_str = stringToArrayTime("{{weekStudyTime}}");
+	var week_game_str = stringToArrayTime("{{weekGameTime}}");
+
+	var week_study_time = new Array();
+	var week_study = new Array();
+
+	var week_game_time = new Array();
+	var week_game = new Array();
+
+	//Time convert minute for view the Chart
+	for (var i = 0; i < 7; i++) {
+		week_study_time.push(new Time(week_study_str[i]));
+		week_study.push(week_study_time[i].getMinutesFor());
+
+		week_game_time.push(new Time(week_game_str[i]));
+		week_game.push(week_game_time[i].getMinutesFor());
+	}
+
+	week_study.push(0);
+	week_study.push(new Time("15:00:00").getMinutesFor());
+
+	week_game.push(0);
+	week_game.push(new Time("15:00:00").getMinutesFor());
+</script>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>게임 시간, 공부 시간 확인</title>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+	<link href="https://fonts.googleapis.com/css?family=Blinker&display=swap" rel="stylesheet">
+	<script src="{{url_for('static',filename='assets/js/jquery.min.js')}}"></script>
+	<script src="{{url_for('static',filename='assets/js/jquery.scrolly.min.js')}}"></script>
+	<script src="{{url_for('static',filename='assets/js/jquery.scrollex.min.js')}}"></script>
+	<script src="{{url_for('static',filename='assets/js/skel.min.js')}}"></script>
+	<script src="{{url_for('static',filename='assets/js/util.js')}}"></script>
+	<script src="{{url_for('static',filename='assets/js/main.js')}}"></script>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="{{url_for('static',filename='assets/css/main.css')}}" />
+
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+	<link href="{{url_for('static',filename='fontawesome-free-5.9.0-web/css/all.min.css')}}" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.js"></script>
+	<style type="text/css">
+		@import url('https://fonts.googleapis.com/css?family=Lacquer&display=swap');
+
+		* {
+			font-family: 'Blinker', sans-serif;
+		}
+
+		#header {
+			background: #4078FF;
+		}
+
+		#header {
+
+			background: #4078FF;
+
+		}
+
+		/*side bar*/
+		.sidenav {
+			height: 100%;
+			width: 0;
+			position: fixed;
+			z-index: 1;
+			top: 0;
+			left: 0;
+			background-color: #111;
+			overflow-x: hidden;
+			transition: 0.5s;
+			padding-top: 60px;
+		}
+
+		.sidenav a {
+			padding: 8px 8px 8px 32px;
+			text-decoration: none;
+			font-size: 20px;
+			color: #818181;
+			display: block;
+			transition: 0.3s;
+			text-align: center;
+		}
+
+		.sidenav a:hover {
+			color: #f1f1f1;
+		}
+
+		.sidenav .closebtn {
+			position: absolute;
+			top: 0;
+			right: 25px;
+			font-size: 20px;
+			margin-left: 50px;
+		}
+
+		element.style {
+			font-size: 20px;
+			cursor: pointer;
+			float: left;
+		}
+
+		@media screen and (max-height: 450px) {
+			.sidenav {
+				padding-top: 15px;
+			}
+
+			.sidenav a {
+				font-size: 18px;
+			}
+		}
+
+		/*side bar*/
+
+		/* TiTLE BAR */
+		#titleBar {
+			max-width: 0 auto;
+			margin: 0 auto;
+			font-size: 15pt;
+		}
+
+		.right {
+			float: right;
+		}
+
+		.right .fas {
+			margin-left: 15px;
+		}
+
+		body {
+			background-color: white;
+			color: #020202;
+		}
+
+		#list {
+			max-width: 0 auto;
+			margin: 0 auto;
+			margin-top: 15px;
+		}
+
+		.list-item {
+			background-color: #4078FF;
+			height: 70px;
+			border-radius: 10px;
+			margin-bottom: 15px;
+			text-align: center;
+		}
+
+		.list-item-2 {
+			background-color: #4078FF;
+			height: 70px;
+			border-radius: 10px;
+			margin-bottom: 15px;
+			font-size: 50px;
+
+		}
+
+		.list-item i {
+			display: block;
+			float: left;
+			font-size: 45px;
+			margin-top: 10px;
+			margin-left: 15px;
+
+		}
+
+		.list-last {
+			background-color: #4078FF;
+			height: 60px;
+			border-radius: 10px;
+			margin-bottom: 15px;
+			font-size: 10px;
+			margin-top: 75px;
+			margin-left: 0px;
+			padding-left: 15px;
+		}
+
+		#분석Bar {
+			font-size: 20px;
+			font-family: 'Blinker', sans-serif
+		}
+
+		body {
+			background-color: #f2f4f7;
+		}
+
+		.box {
+			margin-top: 190%;
+			background-color: #f2f4f7;
+		}
+
+		.nav {
+			height: 70px;
+			border-top: 1px solid gray;
+			display: flex;
+			align-items: center;
+			color: black;
+			opacity: 0.5;
+
+		}
+
+		.nav-center {
+			display: flex;
+			margin-left: 20%;
+
+		}
+
+		.nav-item {
+			padding-left: 20px;
+			font-size: 12px;
+			opacity: 0.5;
+			color: black;
+
+		}
+
+		a {
+			text-decoration: none
+		}
+
+		a {
+			color: black;
+		}
+
+		#gameic {
+			color: white;
+			margin-top: 12px;
+		}
+
+		#studyic {
+			color: white;
+
+		}
+
+		#fontp {
+			font-family: 'Blinker', sans-serif;
+		}
+
+		#ToggleButton {
+			background-color: #4CAF50;
+			border: none;
+			color: white;
+			padding: 20px 32px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 20px;
+			width: 124px;
+		}
+
+		#togglet {
+			margin-top: -20px;
+		}
+	</style>
+</head>
+
+<body class="subpage">
+	<div id="titleBar">
+
+
+		<header id="header">
+			<div class="logo"><a href="https://tmslive.co.kr" style="font-family: 'Blinker',sans-serif">TMS<span
+						style="font-family: 'Blinker',sans-serif">toomuchspeaker</span></a></div>
+			<a href="#menu" class="toggle"><span style="font-family: 'Blinker',sans-serif">Menu</span></a>
+			<</header> <nav id="menu">
+				<ul class="links">
+					<li><a href="/"><span style="font-family: 'Blinker', sans-serif">메인 페이지</span></a>
+						<a href="/todo"><span style="font-family: 'Blinker', sans-serif">해야 할 일</span></a>
+						<a href="/study"><span style="font-family: 'Blinker', sans-serif">공부하러 가기</span></a>
+						<a href="/day"><span style="font-family: 'Blinker', sans-serif">게임, 공부 시간</span></a>
+						<a href="/rewardreceive"><span style="font-family: 'Blinker', sans-serif">보상 받기</span></a>
+						<a href="/reward"><span style="font-family: 'Blinker', sans-serif">보상 등록</span></a>
+				</ul>
+				</nav>
+
+
+				<span class="title"> </span>
+				<div class="right">
+
+				</div>
+	</div>
+	<div id="DayView">
+		<!--------------------------------------------day---------------------------------------------------->
+		<button id="ToggleButton" onclick="ToggleView();">
+			<div id="togglet" style="font-family: 'Blinker',sans-serif">
+				하루
+			</div>
+		</button>
+		<canvas id="pie-chart" width="200" height="150"></canvas>
+		<div id="분석Bar" style="font-family: 'Blinker',sans-serif">
+			<strong>공부 시간</strong>
+		</div>
+
+		<div id="list">
+			<div class="list-item">
+				<div id="studyic">
+					<i class="fas fa-book-reader"></i>
+				</div>
+				<p id="stydydata"></p>
+				<div id="fontp">
+					<p style="padding-top: 22px; font-size: 20px;" id="study-time"></p>
+				</div>
+			</div>
+
+		</div>
+		<div id="분석Bar" style="font-family: 'Blinker',sans-serif">
+			<strong>게임 시간</strong>
+		</div>
+		<div id="list">
+			<div class="list-item">
+				<div id="gameic">
+					<i class="fas fa-gamepad"></i>
+				</div>
+				<p id="gamedata"></p>
+				<div id="fontp">
+					<p style="padding-top: 22px; font-size: 20px;" id="game-time"></p>
+				</div>
+			</div>
+		</div>
+		<!--------------------------------------------day---------------------------------------------------->
+	</div>
+
+	<div id="WeekView">
+		<!--------------------------------------------week---------------------------------------------------->
+		<button id="ToggleButton" onclick="ToggleView();">
+			<div id="togglet" style="font-family: 'Blinker',sans-serif">
+				일주일
+			</div>
+		</button>
+
+		<canvas id="week-pie-chart" width="10" height="8"></canvas>
+		<div id="분석Bar" style="font-family: 'Blinker',sans-serif">
+			<strong>일주일 총 게임 시간</strong>
+		</div>
+
+		<div id="list">
+			<div class="list-item">
+				<div id="gameic">
+					<i class="fas fa-gamepad"></i>
+				</div>
+				<p id="gamedata"></p>
+				<div id="fontp">
+					<p style="padding-top: 22px; font-size: 20px;" id="weekgame-time"></p>
+				</div>
+			</div>
+		</div>
+		<div id="분석Bar" style="font-family: 'Blinker',sans-serif">
+			<strong>일주일 총 공부 시간</strong>
+		</div>
+		<div id="list">
+			<div class="list-item">
+				<div id="studyic">
+					<i class="fas fa-book-reader"></i>
+				</div>
+				<p id="stydydata"></p>
+				<div id="fontp">
+					<p style="padding-top: 22px; font-size: 20px;" id="weekstudy-time"></p>
+				</div>
+			</div>
+		</div>
+		<!--------------------------------------------week---------------------------------------------------->
+	</div>
+
+
+	<div class="box">
+			<div class="nav">
+				<div class="nav-center">
+					<div class="nav-item"><a href="http://cf2b77c9.ngrok.io/ad">
+						<br><br><br><br>
+						<span style="font-family: 'Blinker',sans-serif">개인정보처리방침</span><br><br>
+	
+						<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4>.0/%22%3E">
+							<img alt="크리에이티브 커먼즈 라이선스" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" />
+						   </a>
+						   <br />
+						   <a xmlns:cc="http://creativecommons.org/ns#" href="http://tmslive.co.kr/" property="cc:attributionName" rel="cc:attributionURL">
+							   https://tmslive.co.kr/
+						   </a><span style="font-family: 'Blinker',sans-serif">에 의해 작성된</span> 
+						   <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">
+							<span style="font-family: 'Blinker',sans-serif">본 웹사이트의 이미지, 그림, 동영상 등 모든 저작물은(는)</span>
+						   <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/%22%3E">
+							<span style="font-family: 'Blinker',sans-serif">크리에이티브 커먼즈 저작자표시-비영리-동일조건변경허락 4.0 국제 라이선스</a>에 따라 이용할 수 있습니다.</span>
+					</a></div>
+					
+					</div>
+				</div>
+			</div>
+
+
+
+	<script>
+
+		function openNav() {
+			document.getElementById("mySidenav").style.width = "250px";
+		}
+
+		function closeNav() {
+			document.getElementById("mySidenav").style.width = "0";
+		}
+		//Chart view day or week
+		new Chart(document.getElementById("pie-chart"), {
+			type: 'pie',
+			data: {
+				labels: ["게임시간", "공부시간", "기타"],
+				datasets: [{
+					label: ["게임시간", "공부시간", "기타"],
+					backgroundColor: ["#33DCFF", "#4078FF", "#6333FF"],
+					data: [game.getMinutesFor(), study.getMinutesFor(), free.getMinutesFor()]
+				}]
+			},
+			options: {
+				title: {
+					display: false,
+				},
+				tooltips: {
+					callbacks: {
+						label: function (tooltip, data) {
+							var index = tooltip.index;
+							var minutes = data.datasets[tooltip.datasetIndex]['data'][index];
+							var label = data.labels[index];
+							return label + ': ' + minutes + ' 분';
+						}
+					}
+				}
+			}
+		});
+
+		new Chart(document.getElementById("week-pie-chart"), {
+			type: 'bar',
+			data: {
+				labels: ["일", "월", "화", "수", "목", "금", "토"],
+				datasets: [{
+					label: "게임 시간",
+					backgroundColor: ["#33DCFF", "#33DCFF", "#33DCFF", "#33DCFF", "#33DCFF", "#33DCFF", "#33DCFF", "rgba(0,0,0,0)"],
+					data: week_game.concat([0, 24])
+				},
+				{
+					label: "공부 시간",
+					backgroundColor: ["#4078FF", "#4078FF", "#4078FF", "#4078FF", "#4078FF", "#4078FF", "#4078FF", "rgba(0,0,0,0)"],
+					data: week_study
+				}]
+			},
+			options: {
+				tooltips: {
+					callbacks: {
+						label: function (tooltip, data) {
+							var index = tooltip.index;
+							var minutes = data.datasets[tooltip.datasetIndex]['data'][index];
+							var label = data.labels[index];
+							var attribute = data.datasets[tooltip.datasetIndex].label;
+							return attribute + ": "+ minutes + ' 분';
+						}
+					}
+				}
+			}
+		});
+		//get element 
+		var DayView = document.getElementById("DayView");
+		var WeekView = document.getElementById("WeekView");
+
+		var studyTime = document.getElementById("study-time");
+		var gameTime = document.getElementById("game-time");
+		var weekStudyTime = document.getElementById("weekstudy-time");
+		var weekGameTime = document.getElementById("weekgame-time");
+
+		//View 
+		function OnDayView() {
+			DayView.style.display = "block";
+		}
+		function OffDayView() {
+			DayView.style.display = "none";
+		}
+		function OnWeekView() {
+			WeekView.style.display = "block";
+		}
+		function OffWeekView() {
+			WeekView.style.display = "none";
+		}
+
+		function ToggleDayView() {
+			if (DayView.style.display === "none") {
+				OnDayView();
+			}
+			else {
+				OffDayView();
+			}
+		}
+		function ToggleWeekView() {
+			if (WeekView.style.display === "none") {
+				OnWeekView();
+			}
+			else {
+				OffWeekView();
+			}
+		}
+
+		function ToggleView()
+		{
+			ToggleDayView();
+			ToggleWeekView();
+		}
+
+		//SUM time
+		function sumWeekStudy() {
+			var sumWeekStudy = 0;
+			for (var i = 0; i < week_study_time.length; i++) {
+				sumWeekStudy += week_study_time[i].getSecondsFor();
+			}
+			var time = new Time("00:00:00");
+			time.second = sumWeekStudy;
+			return time;
+		}
+		function sumWeekGame() {
+			var sumWeekGame = 0;
+			for (var i = 0; i < week_game_time.length; i++) {
+				sumWeekGame += week_game_time[i].getSecondsFor();
+			}
+			var time = new Time("00:00:00");
+			time.second = sumWeekGame;
+			return time;
+		}
+
+		//view text for time
+		function UpdateStudyTime() {
+			studyTime.innerHTML = study.tostring();
+		}
+		function UpdateGameTime() {
+			gameTime.innerHTML = game.tostring();
+		}
+		function UpdateWeekStudyTime() {
+			weekStudyTime.innerHTML = sumWeekStudy().tostring();
+		}
+		function UpdateWeekGameTime() {
+			weekGameTime.innerHTML = sumWeekGame().tostring();
+		}
+		function ToggleButton() {
+
+		}
+
+		UpdateStudyTime();
+		UpdateGameTime();
+		UpdateWeekStudyTime();
+		UpdateWeekGameTime();
+		OnDayView();
+		OffWeekView();
+	</script>
+</body>
+
+
+</html>

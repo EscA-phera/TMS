@@ -1,0 +1,471 @@
+<!doctype html>
+<html>
+  <script>
+      function Time()
+    {
+      this.second = this.Parse("00:00:00");
+    }
+    function Time(str)
+    {
+      this.second = this.Parse(str);
+    }
+    Time.prototype.Parse = function(str)
+    {
+      var ArrayStrNumber = str.split(':');
+      var ArrayNumber = new Array();
+      for(var i = 0; i < ArrayStrNumber.length; i++)
+      {
+        ArrayNumber.push(Number(ArrayStrNumber[i]));
+      }
+      this.second = ArrayNumber[0]*3600 + ArrayNumber[1]*60 + ArrayNumber[2 ]; 
+      return this.second;
+    }
+  
+    Time.prototype.getHoursFor = function()
+    {
+      return Math.floor(this.second/3600);
+    }
+    Time.prototype.getMinutesFor = function()
+    {
+      return Math.floor(this.second/60);
+    }
+    Time.prototype.getSecondsFor = function()
+    {
+      return this.second;
+    }
+  
+    Time.prototype.getHours = function()
+    {
+      return Math.floor(this.second/3600)%24;
+    }
+    Time.prototype.getMinutes = function()
+    {
+      return Math.floor(this.second/60)%60;
+    }
+    Time.prototype.getSeconds = function()
+    {
+      return this.second%60;
+    }
+  
+  
+    Time.prototype.SubTime = function(a,b)
+    {
+      this.second = a.second-b.second;
+      return this;
+    }
+    Time.prototype.AddTime = function(a,b)
+    {
+      this.second = a.second + b.second;
+      return this;
+    }
+  
+    Time.prototype.SubTime = function(a)
+    {
+      this.second = Math.abs(this.second - a.second) ;
+      return this;
+    }
+    Time.prototype.AddTime = function(a)
+    {
+      this.second += a.second;
+      return this;
+    }
+  
+    Time.prototype.tostring = function()
+    {
+      return ""+this.getHours()+":"+this.getMinutes()+":"+this.getSeconds();
+    }
+    </script>
+
+
+  <script>
+    var state = "{{state}}"
+    var Goal = new Time("{{goal}}");
+    var Time = new Time("{{week_time}}");
+
+    var reward = {{ReceiveAble}};
+    var rewardImage = "/rewardImages/"+"{{ReceivePath}}"; 
+
+    
+    var Graph = [Goal.getMinutesFor(),Time.getMinutesFor(),0,Goal.getMinutesFor()+10];
+  </script>
+
+  
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>reword</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <link href="https://fonts.googleapis.com/css?family=Blinker&display=swap" rel="stylesheet">
+	<script src="{{url_for('static',filename='assets/js/jquery.min.js')}}"></script>
+	<script src="{{url_for('static',filename='assets/js/jquery.scrolly.min.js')}}"></script>
+	<script src="{{url_for('static',filename='assets/js/jquery.scrollex.min.js')}}"></script>
+	<script src="{{url_for('static',filename='assets/js/skel.min.js')}}"></script>
+	<script src="{{url_for('static',filename='assets/js/util.js')}}"></script>
+	<script src="{{url_for('static',filename='assets/js/main.js')}}"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="{{url_for('static',filename='assets/css/main.css')}}" />
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+	<link href="{{url_for('static',filename='fontawesome-free-5.9.0-web/css/all.min.css')}}" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.js"></script>
+  <style type="text/css">
+    @import url('https://fonts.googleapis.com/css?family=Lacquer&display=swap');
+
+    * {
+      font-family: 'Blinker', sans-serif;
+    }
+
+    #title {
+      text-align: center;
+      font-size: 50px;
+    }
+
+    
+	#header {
+    background: #4078FF;   
+            }
+            #header {
+   
+    background: #4078FF;
+   
+}
+   
+        .box {
+      margin-top: 190%;
+      background-color: #f2f4f7;
+    }
+
+    .nav {
+      height: 70px;
+      border-top: 1px solid gray;
+      display: flex;
+      align-items: center;
+      color: black;
+      opacity: 0.5;
+
+    }
+
+    .nav-center {
+      display: flex;
+      margin-left: 20%;
+
+    }
+
+    .nav-item {
+      padding-left: 20px;
+      font-size: 12px;
+      opacity: 0.5;
+      color: black;
+
+    }
+        a { 
+            text-decoration:none 
+
+        }
+        a {
+        color: black;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  left: 10px;
+  top:20px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .game {
+	color: #FFFFFF;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+.element
+{
+	font-size:10px;
+  top: 10px;
+  font-weight: 500;
+  color:black;
+}
+.study
+{
+	position:absolute;
+  left:7px;
+}
+.game
+{
+	position:absolute;
+  left: 33px;
+}
+  </style>
+</head>
+
+<body class="subpage">
+	
+
+  <header id="header">
+    <div class="logo"><a href="/" style="font-family: 'Blinker',sans-serif">TMS<span style="font-family: 'Blinker',sans-serif">toomuchspeaker</span></a></div>
+    <a href="#menu" class="toggle"><span style="font-family: 'Blinker',sans-serif">Menu</span></a>
+  </header>
+
+ <nav id="menu">
+			<ul class="links">
+				<li><a href="/">메인 페이지</a>
+          <a href="/todo">해야 할 일</a>
+          <a href="/study">공부하러 가기</a>
+          <a href="/day">게임, 공부 시간</a>
+          <a href="/rewardreceive">보상 받기</a>
+          <a href="/reward">보상 등록</a>
+			</ul>
+		</nav>
+<!--
+  
+        {
+            background-color: #f2f4f7;
+        }
+  <div id="title">
+    <h1 style= "font-size: 40px; font-family: 'Blinker', sans-serif;"><strong>Reward 받기</strong><br>
+  </div>
+  <canvas id="bar-chart-horizontal" width="100" height="100"></canvas>
+  <br><br><button style=" margin-left: 90%; background-color:#C1E3E1;" onclick="myFunction()">보상받기</button>
+  <canvas id="bar-chart-horizontal1" width="10" height="10"></canvas>
+ <br><br><button style=" margin-left: 90%; background-color:#C1E3E1;" onclick="myFunction()">보상받기</button>
+-->
+  <div id="ChartView">
+    <!--<label class="switch">
+      <input type="checkbox" id="check" onclick="">
+      <span class="slider"></span>
+      <span class="element study" style="font-family: 'Blinker',sans-serif">공부</span>
+      <span class="element game" style="font-family: 'Blinker',sans-serif">게임</span>
+    </label>-->
+
+      <canvas id="study-chart" width="200" height="150"></canvas>
+      <canvas id="game-chart" width="200" height="150"></canvas>
+      <div id="none-view" width="200" height="150" >퀘스트가 없습니다.</canvas>
+  </div>
+
+  <div id="ReceiveView">
+
+    <form>
+      <button id="ReceiveButton"><a class="btn" href="" id="ReceiveLink" style="font-family: 'Blinker',sans-serif">보상 받기</a></button>
+    </form>
+  </div>
+
+
+ <div class="box">
+    <div class="nav">
+            <div class="nav-center">
+                <div class="nav-item">
+                  <a href="개인정보처리방침">
+                    <br><br>개인정보처리방침<br>
+                  </a>
+               
+             <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/%22%3E<img alt="크리에이티브 커먼즈 라이선스" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><a xmlns:cc="http://creativecommons.org/ns#" href="http://tmslive.co.kr/" property="cc:attributionName" rel="cc:attributionURL">http://tmslive.co.kr/</a>에 의해 작성된 <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">본 웹사이트의 이미지, 그림, 동영상 등 모든 저작물</span>은(는) <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/%22%3E">크리에이티브 커먼즈 저작자표시-비영리-동일조건변경허락 4.0 국제 라이선스</a>에 따라 이용할 수 있습니다.
+            </div>
+            </div>
+        </div>
+</div>
+
+
+
+</body>
+<script>
+  new Chart(document.getElementById("study-chart"), {
+    type: 'horizontalBar',
+    data: {
+      labels: ["목표공부시간", "공부시간"],
+      datasets: [
+        {
+          label: "",
+          backgroundColor: ["#6BD4E8", "#9083FF"],
+          data: Graph
+  }
+      ]
+    },
+    options: {
+      legend: { display: false },
+      title: {
+        display: true,
+        text: '목표공부시간과 공부시간'
+      },
+      scales: {
+        yAxes: [{
+            barPercentage: 0.5,
+            barThickness: 30,
+            maxBarThickness: 30,
+            minBarLength: 30,
+            gridLines: {
+                offsetGridLines: true
+            }
+        }]
+    }
+    }
+});
+  new Chart(document.getElementById("game-chart"), {
+    type: 'horizontalBar',
+    data: {
+      labels: ["목표게임시간","게임시간"],
+      datasets: [
+        {
+          label: "",
+          backgroundColor: ["#6BD4E8", "#9083FF"],
+          data: Graph
+  }
+      ]
+    },
+    options: {
+      legend: { display: false },
+      title: {
+        display: true,
+        text: '목표게임시간과 게임시간'
+      },
+      scales: {
+        yAxes: [{
+            barPercentage: 0.5,
+            barThickness: 30,
+            maxBarThickness: 30,
+            minBarLength: 30,
+            gridLines: {
+                offsetGridLines: true
+            }
+        }]
+    }		
+    }
+});
+  var check = document.getElementById("check");
+  var studyChart = document.getElementById("study-chart");
+  var gameChart = document.getElementById("game-chart");
+
+  var ReceiveLink =  document.getElementById("ReceiveLink");
+  var ReceiveButton = document.getElementById("ReceiveButton");
+
+  function OnStudyGraph()
+  {
+    studyChart.style.display = "block";    
+  }
+  function OffStudyGraph()
+  {
+    studyChart.style.display = "none";    
+  }
+
+  function ToggleStudyGraph()
+  {
+    if(studyChart.style.display === "none")
+    {
+      OnStudyGraph();
+    }
+    else
+    {
+      OffStudyGraph();
+    }
+  }
+
+  function OnGameGraph()
+  {
+    gameChart.style.display = "block";    
+  }
+  function OffGameGraph()
+  {
+    gameChart.style.display = "none";    
+  }
+  function ToggleGameGraph()
+  {
+    if(gameChart.style.display === "none")
+    {
+      OnGameGraph();
+    }
+    else
+    {
+      OffGameGraph();
+    }
+  }
+  function getState()
+  {
+    if(state=="study")
+    {
+      OnStudyGraph();
+
+    }
+    else if(state=="game")
+    {
+      OnGameGraph();
+    }
+    else
+    {
+      document.getElementById("none-view").style.display = "block";
+    }
+  }
+  function Sethref()
+  {
+    if(reward)
+    {
+      ReceiveLink.setAttribute('href', rewardImage);
+      
+      ReceiveButton.disabled = false;
+    }
+    else{
+      ReceiveButton.disabled = true;
+    }
+  }
+  /*check.onclick = function()
+  {
+    ToggleStudyGraph();
+    ToggleGameGraph();
+  }*/
+  OffStudyGraph();
+  OffGameGraph();
+  document.getElementById("none-view").style.display = "none";
+  
+  getState();
+  Sethref();
+</script>
+
+</html>

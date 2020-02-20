@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>에러 페이지</title>
+
+	<link href="https://fonts.googleapis.com/css?family=Cabin:400,700" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}" />
+
+	<style>
+			body
+		{
+			background-color: #f2f4f7;
+		}
+		.box
+        {
+            margin-top: 100%;
+        }
+        .nav
+        {
+            height: 70px;
+            border-top: 1px solid gray;
+            display: flex;
+            align-items: center;
+            color: black;
+			opacity: 0.5;
+
+        }
+        .nav-center
+        {
+            display: flex;
+			margin-left: 40%;
+
+        }
+        .nav-item
+        {
+            padding-left: 50px;
+            font-size: 20px;
+			opacity: 0.5;
+			
+
+        }
+        a { 
+            text-decoration:none 
+
+        }
+        a {
+        color: black;
+}
+	</style>
+</head>
+
+<body>
+
+	<div id="notfound">
+		<div class="notfound">
+			<div class="notfound-404">
+				<img src="{{url_for('static',filename='error.png')}}" width="250" height="250" style="margin-left: -43px;">
+				<div></div>
+			</div>
+			<h2>Page not found!</h2>
+            <p style="font-family: 'Blinker',sans-serif">
+                <p style="font-family: 'Blinker',sans-serif">이용에 불편을 드려 죄송합니다. 오류가 발생하였습니다. 오류가 발생하였다고 예상되는 이유는 다음과 같습니다.</p>
+                <p style="font-family: 'Blinker',sans-serif">1. 가입일 제한이 있는 서비스에 접근하였을 경우</p>
+                <p style="font-family: 'Blinker',sans-serif">2. 웹사이트에 문제가 될 수 있는 행위를 시도하였을 경우</p>
+                <p style="font-family: 'Blinker',sans-serif">3. 다른 사용자의 서비스에 접속하려고 시도하였을 경우</p>
+                <p style="font-family: 'Blinker',sans-serif">4. 서버에 정상적이지 않은 접근을 시도하였을 경우</p>
+                <p style="font-family: 'Blinker',sans-serif">위 사항에 해당되지 않을 경우, 메인 페이지로 다시 돌아가시어 다시 한 번 시도하여 주세요.</p>
+                <p style="font-family: 'Blinker',sans-serif">감사합니다. 좋은 하루 보내시길 바랍니다.</p>
+                <a href="http://tmslive.co.kr/">home page</a>
+            </p>
+           
+		</div>
+	</div>
+	<div class="box">
+        <div class="nav">
+                <div class="nav-center">
+                    <div class="nav-item"><a href="https://tmslive.co.kr/ad">개인정보처리방침</a></div>
+                    <div class="nav-item"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/%22%3E<img alt="크리에이티브 커먼즈 라이선스" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><a xmlns:cc="http://creativecommons.org/ns#" href="http://tmslive.co.kr/" property="cc:attributionName" rel="cc:attributionURL">http://tmslive.co.kr/</a>에 의해 작성된 <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">본 웹사이트의 이미지, 그림, 동영상 등 모든 저작물</span>은(는) <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/%22%3E">크리에이티브 커먼즈 저작자표시-비영리-동일조건변경허락 4.0 국제 라이선스</a>에 따라 이용할 수 있습니다.</div>
+                </div>
+            </div>
+</div>
+
+
+
+</body>
+
+</html>

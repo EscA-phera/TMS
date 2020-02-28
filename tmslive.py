@@ -37,9 +37,9 @@ api = Api(app)
 # MySQL config
 mysql = MySQL()
 app.config['MYSQL_DATABASE_USER'] = 'root' # Database username
-app.config['MYSQL_DATABASE_PASSWORD'] = 'Kp!697467' # Database password
+app.config['MYSQL_DATABASE_PASSWORD'] = '' # Database password
 app.config['MYSQL_DATABASE_DB'] = 'tms' # Database table name
-app.config['MYSQL_DATABASE_HOST'] = '133.186.241.54' # Database hosts name
+app.config['MYSQL_DATABASE_HOST'] = '' # Database hosts name
 app.config['MYSQL_DATABASE_PORT'] = 3306 # Database port
 mysql.init_app(app)
 
